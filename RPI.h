@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <sys/mman.h>
 #include <sys/types.h>
@@ -41,10 +42,12 @@
 
 #define GPIO_PUD_DISABLE(g) *(gpio.addr + 37) &= (0<<(g))
 
-//USB low power macros. USB MDIO CONTORL 20bit clear
+//USB low power macros. USB MDIO CONTORL 20bit clear and set
 #define USB_MDIOCTL_FREERUN_CLR *(usb.addr + 32) &= ~(1 << 20)
-#define USB_MDIOCTL_MDCRATIO_READ *(usb.addr + 32) &= (15 << 16)
-//(*(usb.addr + 32) & (15 << 16)) >> 16
+#define USB_MDIOCTL_FREERUN_SET *(usb.addr + 32) |= (1 << 20)
+
+#define USB_MDIOCTL_MDCRATIO_READ *(usb.addr + 32) &= (15 << 16) >> 16
+//(*(usb.addr + 32) & (15 << 16))
 
 
 #define BLOCK_SIZE 		(4*1024)

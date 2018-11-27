@@ -68,7 +68,7 @@ void hdmi_disable(){
   }*/
   system("tvservice -o");
 
-  sleep(3);
+  sleep(10);
 
   system("tvservice -p");
   system("fbset -depth 8 && fbset -depth 16");
@@ -76,16 +76,53 @@ void hdmi_disable(){
   return;
 }
 
-//txt file input.... it is fail
+// wifi&bluetooth disable
 void wifi_and_bluetooth_disable(){
-  system("brcmfmac");
-  system("brcmutil");
+  int fd;
+  
+  char *disable_bt1 = "blacklist btbcm\n";
+  char *disable_bt2 = "blacklist hci_uart\n";
 
+  char *disable_wifi1 = "blacklist brcmfmac\n";
+  char *disable_wifi2 = "blacklist brcmutil\n";
+
+  fd = open("/etc/modprobe.d/raspi-blacklist.conf", O_RDWR|O_APPEND);
+
+  if( fd == -1 ){
+    perror("failed open ");
+    return;
+  }
+  else{
+    write(fd, disable_bt1, strlen(disable_bt1));
+    write(fd, disable_bt2, strlen(disable_bt2));
+
+    /*
+    write(fd, disable_wifi1, strlen(disable_wifi1));
+    write(fd, disable_wifi2, strlen(disable_wifi2)); 
+    */
+
+    close(fd);
+  }
+  return;
+}
+
+void wifi_and_bluetooth_enable(){
+  int fd;
+
+  fd = open("/etc/modprobe.d/raspi-blacklist.conf", O_TRUNC);
+  if( fd == -1 ){
+    perror("failed open ");
+    return;
+  }
+  printf("config initialization is done\n");
   return;
 }
 
 void usb_optimize(){
   USB_MDIOCTL_FREERUN_CLR;
+}
+void usb_unoptimize(){
+  USB_MDIOCTL_FREERUN_SET;
 }
 
 int check_usb_MDC_clock_freq(){
@@ -107,31 +144,24 @@ int main()
     return -1;
   }
 
-  int gpio_pin_number = 4;
-  disable_gpio(gpio_pin_number);
-  
-  usb_optimize();
+//gpio disable test
+//  int gpio_pin_number = 4;
+//  disable_gpio(gpio_pin_number);
 
-  int usb_freq = check_usb_MDC_clock_freq();
-  printf("usb freq = %d\n", usb_freq);
+// usb test  
+//  usb_optimize();
+//  usb_unoptimize();
+
+// usb mdio freq read  
+//  int usb_freq = check_usb_MDC_clock_freq();
+//  printf("usb freq = %d\n", usb_freq);
+
+// wifi and bluetooth test  
 //  wifi_and_bluetooth_disable();
+//  wifi_and_bluetooth_enable();
 
+// hdmi test
 //  hdmi_disable();
 
-/* Blink led..
-  // Define pin 7 as output
-  INP_GPIO(4);
-  OUT_GPIO(4);
-
-  while(1)
-  {
-    // Toggle pin 7 (blink a led!)
-    GPIO_SET = 1 << 4;
-    sleep(1);
-
-    GPIO_CLR = 1 << 4;
-    sleep(1);
-  }
-*/
   return 0;
 }
