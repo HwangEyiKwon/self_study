@@ -96,10 +96,10 @@ void wifi_and_bluetooth_disable(){
     write(fd, disable_bt1, strlen(disable_bt1));
     write(fd, disable_bt2, strlen(disable_bt2));
 
-    /*
+    
     write(fd, disable_wifi1, strlen(disable_wifi1));
     write(fd, disable_wifi2, strlen(disable_wifi2)); 
-    */
+    
 
     close(fd);
   }
@@ -146,6 +146,9 @@ int main()
 
 //gpio disable test
 //  int gpio_pin_number = 4;
+//  for(int i = 1; i <= 54; i ++){
+//    disable_gpio(i);
+//  }
 //  disable_gpio(gpio_pin_number);
 
 // usb test  
@@ -157,7 +160,7 @@ int main()
 //  printf("usb freq = %d\n", usb_freq);
 
 // wifi and bluetooth test  
-//  wifi_and_bluetooth_disable();
+  wifi_and_bluetooth_disable();
 //  wifi_and_bluetooth_enable();
 
 // hdmi test
