@@ -53,6 +53,23 @@ void disable_gpio(int gpio_pin){
   return;
 }
 
+void disable_gpio(int gpio_pin){
+  GPIO_REN0_ENABLE(gpio_pin);
+  GPIO_REN1_ENABLE(gpio_pin);
+  GPIO_FEN0_ENABLE(gpio_pin);
+  GPIO_FEN1_ENABLE(gpio_pin);
+  GPIO_HEN0_ENABLE(gpio_pin);
+  GPIO_HEN1_ENABLE(gpio_pin);
+  GPIO_LEN0_ENABLE(gpio_pin);
+  GPIO_LEN1_ENABLE(gpio_pin);
+  GPIO_AREN0_ENABLE(gpio_pin);
+  GPIO_AREN1_ENABLE(gpio_pin);
+  GPIO_AFEN0_ENABLE(gpio_pin);
+  GPIO_AFEN1_ENABLE(gpio_pin);
+  GPIO_PUD_ENABLE(gpio_pin);
+  return;
+}
+
 //HDMI disabling code
 void hdmi_disable(){
 /*

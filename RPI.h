@@ -42,6 +42,26 @@
 
 #define GPIO_PUD_DISABLE(g) *(gpio.addr + 37) &= (0<<(g))
 
+// GPIO enable macros.
+#define GPIO_REN0_ENABLE(g) *(gpio.addr + 19) |= (1<<(g))
+#define GPIO_REN1_ENABLE(g) *(gpio.addr + 20) |= (1<<(g))
+
+#define GPIO_FEN0_ENABLE(g) *(gpio.addr + 22) |= (1<<(g))
+#define GPIO_FEN1_ENABLE(g) *(gpio.addr + 23) |= (1<<(g))
+
+#define GPIO_HEN0_ENABLE(g) *(gpio.addr + 25) |= (1<<(g))
+#define GPIO_HEN1_ENABLE(g) *(gpio.addr + 26) |= (1<<(g))
+
+#define GPIO_LEN0_ENABLE(g) *(gpio.addr + 28) |= (1<<(g))
+#define GPIO_LEN1_ENABLE(g) *(gpio.addr + 29) |= (1<<(g))
+#define GPIO_AREN0_ENABLE(g) *(gpio.addr + 31) |= (1<<(g))
+#define GPIO_AREN1_ENABLE(g) *(gpio.addr + 32) |= (1<<(g))
+
+#define GPIO_AFEN0_ENABLE(g) *(gpio.addr + 34) |= (1<<(g))
+#define GPIO_AFEN1_ENABLE(g) *(gpio.addr + 35) |= (1<<(g))
+
+#define GPIO_PUD_ENABLE(g) *(gpio.addr + 37) |= (1<<(g))
+
 //USB low power macros. USB MDIO CONTORL 20bit clear and set
 #define USB_MDIOCTL_FREERUN_CLR *(usb.addr + 32) &= ~(1 << 20)
 #define USB_MDIOCTL_FREERUN_SET *(usb.addr + 32) |= (1 << 20)
