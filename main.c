@@ -53,7 +53,7 @@ void disable_gpio(int gpio_pin){
   return;
 }
 
-void disable_gpio(int gpio_pin){
+void enable_gpio(int gpio_pin){
   GPIO_REN0_ENABLE(gpio_pin);
   GPIO_REN1_ENABLE(gpio_pin);
   GPIO_FEN0_ENABLE(gpio_pin);
@@ -169,7 +169,7 @@ int main()
 //  disable_gpio(gpio_pin_number);
 
 // usb test  
-//  usb_optimize();
+  usb_optimize();
 //  usb_unoptimize();
 
 // usb mdio freq read  
@@ -177,7 +177,7 @@ int main()
 //  printf("usb freq = %d\n", usb_freq);
 
 // wifi and bluetooth test  
-  wifi_and_bluetooth_disable();
+//  wifi_and_bluetooth_disable();
 //  wifi_and_bluetooth_enable();
 
 // hdmi test
